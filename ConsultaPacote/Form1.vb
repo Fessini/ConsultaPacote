@@ -151,7 +151,6 @@ Public Class frmPrincipal
 
         Try
 
-            btnAdicionar.Enabled = False
             If txtCodigoRastreio.TextLength = 0 Then
                 epValida.SetError(txtCodigoRastreio, "Favor informar o código de rastreio.")
                 blnValida = False
@@ -161,7 +160,7 @@ Public Class frmPrincipal
                 blnValida = False
             End If
             If blnValida = False Then Exit Sub
-
+            btnAdicionar.Enabled = False
             '
             Do While temp.IsAlive = True
                 lblConsulta.Visible = True
