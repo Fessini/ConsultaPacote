@@ -108,6 +108,7 @@ Public Class frmPrincipal
         lstRastreio.DisplayMember = "Nome"
         lstRastreio.ValueMember = "Id"
         dtRastreio.WriteXml(Application.StartupPath & "\pacotes.xml")
+        id = lstRastreio.Items.Count
     End Sub
 
     Private Sub frmPrincipal_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -120,10 +121,7 @@ Public Class frmPrincipal
         dtRastreio.Columns.Add("Recebido", GetType(Char))
         If File.Exists(Application.StartupPath & "\pacotes.xml") = True Then
             dtRastreio.ReadXml(Application.StartupPath & "\pacotes.xml")
-            id = dtRastreio.Rows.Count
             AtualizaLista()
-        Else
-            id = 0
         End If
         '
         'CONFIGURA TABELA DE CONFIG
