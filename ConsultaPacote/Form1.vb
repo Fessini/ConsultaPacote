@@ -101,7 +101,7 @@ Public Class frmPrincipal
 
                         result.Append("Data: " & eventos.dtHrCriado & vbNewLine)
                         result.Append("Descrição: " & eventos.descricao & vbNewLine)
-                        result.Append("Unidade: " & uni.cidade & uni.uf & " - " & vbNewLine)
+                        result.Append("Unidade: " & uni.cidade & " - " & uni.uf & vbNewLine)
                         If uniDest IsNot Nothing Then result.Append("Unidade Destino: " & uniDest.cidade & " - " & uniDest.uf & vbNewLine)
                         result.Append("==================================================================" & vbNewLine)
                     Next
