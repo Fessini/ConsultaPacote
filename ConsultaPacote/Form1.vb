@@ -31,8 +31,8 @@ Public Class frmPrincipal
                                 End If
 
                                 result.Append("Descrição: " & eventos.descricao & vbNewLine)
-                                result.Append("Unidade: " & uni.cidade & vbNewLine)
-                                If uniDest IsNot Nothing Then result.Append("Unidade Destino: " & uniDest.cidade & vbNewLine)
+                                result.Append("Unidade: " & uni.cidade & " - " & uni.uf & vbNewLine)
+                                If uniDest IsNot Nothing Then result.Append("Unidade Destino: " & uniDest.cidade & " - " & uniDest.uf & vbNewLine)
 
                                 notifica.ShowBalloonTip(5000, Linha.Item("Nome"), result.ToString, ToolTipIcon.Info)
                                 If eventos.descricao = "Objeto entregue ao destinatário" Then
@@ -50,8 +50,8 @@ Public Class frmPrincipal
                             End If
 
                             result.Append("Descrição: " & eventos.descricao & vbNewLine)
-                            result.Append("Unidade: " & uni.cidade & vbNewLine)
-                            If uniDest IsNot Nothing Then result.Append("Unidade Destino: " & uniDest.cidade & vbNewLine)
+                            result.Append("Unidade: " & uni.cidade & uni.uf & vbNewLine)
+                            If uniDest IsNot Nothing Then result.Append("Unidade Destino: " & uniDest.cidade & " - " & uniDest.uf & vbNewLine)
 
                             notifica.ShowBalloonTip(5000, Linha.Item("Nome"), result.ToString, ToolTipIcon.Info)
                             If eventos.descricao = "Objeto entregue ao destinatário" Then
@@ -101,8 +101,8 @@ Public Class frmPrincipal
 
                         result.Append("Data: " & eventos.dtHrCriado & vbNewLine)
                         result.Append("Descrição: " & eventos.descricao & vbNewLine)
-                        result.Append("Unidade: " & uni.cidade & vbNewLine)
-                        If uniDest IsNot Nothing Then result.Append("Unidade Destino: " & uniDest.cidade & vbNewLine)
+                        result.Append("Unidade: " & uni.cidade & uni.uf & " - " & vbNewLine)
+                        If uniDest IsNot Nothing Then result.Append("Unidade Destino: " & uniDest.cidade & " - " & uniDest.uf & vbNewLine)
                         result.Append("==================================================================" & vbNewLine)
                     Next
                 End If
