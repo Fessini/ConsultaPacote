@@ -208,6 +208,7 @@ Partial Class frmPrincipal
         '
         'notifica
         '
+        Me.notifica.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info
         Me.notifica.ContextMenuStrip = Me.cmMenu
         Me.notifica.Icon = CType(resources.GetObject("notifica.Icon"), System.Drawing.Icon)
         Me.notifica.Text = "Consulta Pacote"

@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Correios.vb" />
+    <Compile Include="Correios_V13.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
     </Compile>

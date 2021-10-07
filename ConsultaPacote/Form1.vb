@@ -1,6 +1,8 @@
 ﻿Imports System.IO
 Imports System.Text
-
+''' <summary>
+''' Versão resultado 1.6.1
+''' </summary>
 Public Class frmPrincipal
     Dim dtRastreio, dtConfig As New DataTable
     Dim id As Integer
@@ -11,6 +13,7 @@ Public Class frmPrincipal
     Private Sub Atualiza()
         Dim obj As New Pacote
         Dim Pesq() = dtRastreio.Select("Recebido = 'N'")
+        Dim uniDest As Endereco
 
         For Each Linha As DataRow In Pesq
             Dim pac = obj.ObterPacote(Linha.Item("Codigo"))
@@ -21,12 +24,15 @@ Public Class frmPrincipal
                         If Not IsDBNull(Linha.Item("Qtd")) Then
                             If Linha.Item("Qtd") < objetos.eventos.Count Then
                                 Linha.Item("Qtd") = objetos.eventos.Count
-                                Dim uni = eventos.unidade
-                                Dim uniDest = eventos.unidadeDestino
+                                Dim uni = eventos.unidade.endereco
+                                uniDest = Nothing
+                                If eventos.unidadeDestino IsNot Nothing Then
+                                    uniDest = eventos.unidadeDestino.endereco
+                                End If
 
                                 result.Append("Descrição: " & eventos.descricao & vbNewLine)
-                                result.Append("Unidade: " & uni.nome & vbNewLine)
-                                If uniDest IsNot Nothing Then result.Append("Unidade Destino: " & uniDest.nome & vbNewLine)
+                                result.Append("Unidade: " & uni.cidade & vbNewLine)
+                                If uniDest IsNot Nothing Then result.Append("Unidade Destino: " & uniDest.cidade & vbNewLine)
 
                                 notifica.ShowBalloonTip(5000, Linha.Item("Nome"), result.ToString, ToolTipIcon.Info)
                                 If eventos.descricao = "Objeto entregue ao destinatário" Then
@@ -37,12 +43,15 @@ Public Class frmPrincipal
                             End If
                         Else
                             Linha.Item("Qtd") = objetos.eventos.Count
-                            Dim uni = eventos.unidade
-                            Dim uniDest = eventos.unidadeDestino
+                            Dim uni = eventos.unidade.endereco
+                            uniDest = Nothing
+                            If eventos.unidadeDestino IsNot Nothing Then
+                                uniDest = eventos.unidadeDestino.endereco
+                            End If
 
                             result.Append("Descrição: " & eventos.descricao & vbNewLine)
-                            result.Append("Unidade: " & uni.nome & vbNewLine)
-                            If uniDest IsNot Nothing Then result.Append("Unidade Destino: " & uniDest.nome & vbNewLine)
+                            result.Append("Unidade: " & uni.cidade & vbNewLine)
+                            If uniDest IsNot Nothing Then result.Append("Unidade Destino: " & uniDest.cidade & vbNewLine)
 
                             notifica.ShowBalloonTip(5000, Linha.Item("Nome"), result.ToString, ToolTipIcon.Info)
                             If eventos.descricao = "Objeto entregue ao destinatário" Then
@@ -60,6 +69,8 @@ Public Class frmPrincipal
     Private Sub Consultar()
         Dim obj As New Pacote
         Dim codigo As String
+        Dim uniDest As Endereco
+
         Try
             result.Clear()
 
@@ -82,14 +93,16 @@ Public Class frmPrincipal
                 result.Append("Código do Objeto: " & objetos.codObjeto & vbNewLine)
                 If objetos.eventos IsNot Nothing Then
                     For Each eventos As Evento In objetos.eventos
-                        Dim uni = eventos.unidade
-                        Dim uniDest = eventos.unidadeDestino
+                        Dim uni = eventos.unidade.endereco
+                        uniDest = Nothing
+                        If eventos.unidadeDestino IsNot Nothing Then
+                            uniDest = eventos.unidadeDestino.endereco
+                        End If
 
                         result.Append("Data: " & eventos.dtHrCriado & vbNewLine)
                         result.Append("Descrição: " & eventos.descricao & vbNewLine)
-                        result.Append("Detalhes: " & eventos.detalhe & vbNewLine)
-                        result.Append("Unidade: " & uni.nome & vbNewLine)
-                        If uniDest IsNot Nothing Then result.Append("Unidade Destino: " & uniDest.nome & vbNewLine)
+                        result.Append("Unidade: " & uni.cidade & vbNewLine)
+                        If uniDest IsNot Nothing Then result.Append("Unidade Destino: " & uniDest.cidade & vbNewLine)
                         result.Append("==================================================================" & vbNewLine)
                     Next
                 End If
@@ -261,6 +274,14 @@ Public Class frmPrincipal
         Using frm As New frmSobre
             frm.ShowDialog()
         End Using
+    End Sub
+
+    Private Sub notifica_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles notifica.MouseDoubleClick
+        If Me.Visible = False Then
+            Me.Visible = True
+            Me.WindowState = FormWindowState.Normal
+
+        End If
     End Sub
 
     Private Sub lstRastreio_DoubleClick(sender As Object, e As EventArgs) Handles lstRastreio.DoubleClick
